@@ -63,7 +63,8 @@ class FlightBase(BaseModel):
 
 
 class FlightCreate(FlightBase):
-    pass
+    pilot: int
+    aircraft: int
 
 
 class Flight(FlightBase):
