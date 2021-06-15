@@ -13,7 +13,7 @@ class PilotBase(BaseModel):
 
 
 class PilotCreate(PilotBase):
-    pass
+    name: str
 
 
 class Pilot(PilotBase):
