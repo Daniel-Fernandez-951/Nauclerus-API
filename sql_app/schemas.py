@@ -43,6 +43,7 @@ class Aircraft(AircraftBase):
 # Flight
 class FlightBase(BaseModel):
     flight_dt: date
+    flight_yr: int
     dest_t: str
     dest_f: str
     notes: Optional[str] = None
