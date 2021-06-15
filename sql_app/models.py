@@ -20,7 +20,7 @@ class Pilot(Base):
     __tablename__ = "pilot"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
 
 
     # TODO: Add relationships for Pilot
