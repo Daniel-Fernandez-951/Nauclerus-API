@@ -14,6 +14,9 @@ from .database import Base
 def _get_date():
     return datetime.datetime.now().date()
 
+def _get_year():
+    return datetime.datetime.now().year
+
 
 class Pilot(Base):
     # TODO: Add more features to pilot?
@@ -51,6 +54,7 @@ class Flight(Base):
     aircraft = Column(Integer, ForeignKey("plane.id"))
     # Flight string info
     flight_dt = Column(Date, default=_get_date)
+    flight_yr = Column(Integer, default=_get_year)
     dest_t = Column(String(4), nullable=False)
     dest_f = Column(String(4), nullable=False)
     notes = Column(String(128))
