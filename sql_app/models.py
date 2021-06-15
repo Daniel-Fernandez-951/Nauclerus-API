@@ -4,7 +4,7 @@ Source: https://fastapi.tiangolo.com/tutorial/sql-databases/#create-a-database-u
 
 import datetime
 
-from sqlalchemy import Column, ForeignKey, Integer, String, Date, FLOAT
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric
 from sqlalchemy.orm import relationship
 
 # Local import
@@ -20,6 +20,8 @@ class Pilot(Base):
     __tablename__ = "pilot"
 
     id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+
 
     # TODO: Add relationships for Pilot
     # piloted_ac = relationship("Aircraft", back_populates=)
@@ -56,22 +58,22 @@ class Flight(Base):
     ifr_app = Column(Integer(2), default=0)
     landings = Column(Integer(2), default=1)
     # Aircraft Category
-    sel_t = Column(FLOAT(precision=4), default=0)
-    mel_t = Column(FLOAT(precision=4), default=0)
+    sel_t = Column(Numeric(3, 2), default=0)
+    mel_t = Column(Numeric(3, 2), default=0)
 
-    cross_c = Column(FLOAT(precision=4), default=0)
+    cross_c = Column(Numeric(3, 2), default=0)
     # Conditions of flight
-    day = Column(FLOAT(precision=4), default=0)
-    night = Column(FLOAT(precision=4), default=0)
-    actual_inst = Column(FLOAT(precision=4), default=0)
-    sim_inst = Column(FLOAT(precision=4), default=0)
+    day = Column(Numeric(3, 2), default=0)
+    night = Column(Numeric(3, 2), default=0)
+    actual_inst = Column(Numeric(3, 2), default=0)
+    sim_inst = Column(Numeric(3, 2), default=0)
 
-    ground_train = Column(FLOAT(precision=4), default=0)
+    ground_train = Column(Numeric(3, 2), default=0)
     # Type of piloting time
-    dual_rec = Column(FLOAT(precision=4), default=0)
-    pic = Column(FLOAT(precision=4), default=0)
+    dual_rec = Column(Numeric(3, 2), default=0)
+    pic = Column(Numeric(3, 2), default=0)
     # Total flight time
-    ft_total = Column(FLOAT(precision=4), default=0)
+    ft_total = Column(Numeric(3, 2), default=0)
 
     # TODO: Add relationships for Flights
 
