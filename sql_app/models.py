@@ -14,6 +14,7 @@ from .database import Base
 def _get_date():
     return datetime.datetime.now().date()
 
+
 def _get_year():
     return datetime.datetime.now().year
 
