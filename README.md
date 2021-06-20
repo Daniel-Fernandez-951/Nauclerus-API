@@ -45,7 +45,6 @@ also send your logbook data to a cloud service, ensuring there's always a backup
 ### Built With
 <p align="center">
   <a href="https://fastapi.tiangolo.com"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" alt="FastAPI"></a>
-  <img alt="Logo" width="180" height="180">
 </p>
 
 
