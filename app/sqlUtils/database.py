@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 load_dotenv()
 
 SQLALCHEMY_DATABASE_URL = getenv('HEROKU_SQL_DB')
+# SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL
