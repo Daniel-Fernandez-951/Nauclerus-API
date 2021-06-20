@@ -4,7 +4,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook">
-    <img src="images/logo_nauclerusV0.png" alt="Logo" width="80" height="80">
+    <img src="images/logo_nauclerusV0.png" alt="Logo" width="746" height="261">
   </a>
 
   <h3 align="center">General Aviation Pilot Logbook API </h3>
