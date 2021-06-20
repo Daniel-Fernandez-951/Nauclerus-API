@@ -6,4 +6,4 @@ RUN pip install -r requirements.txt
 
 # Copy application
 COPY ./app /app
-
+COPY .env /app
