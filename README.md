@@ -105,9 +105,7 @@ a remote database (the cloud) or save the database file locally.
     
     Base = declarative_base()
     ```
-
-* **Cloud Database Storage**:
-  - Create `/.env` file
+    - Create `/.env` file
     - ```dotenv
       HEROKU_SQL_DB=sqlite:///./sql_app.db
       ```
@@ -115,12 +113,47 @@ a remote database (the cloud) or save the database file locally.
   
 
 
+* **Cloud Database Storage**:
+  - Confirm `/app/sqlUtils/database.py` looks like this:
+    ```python
+    from os import getenv
+    from dotenv import load_dotenv
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    from sqlalchemy.ext.declarative import declarative_base
+    
+    load_dotenv()
+    
+    SQLALCHEMY_DATABASE_URL = getenv('HEROKU_SQL_DB')
+    
+    engine = create_engine(
+        SQLALCHEMY_DATABASE_URL
+    )
+    
+    SessionLocal = sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine
+    )
+    
+    Base = declarative_base()
+    ```
+  - Create `/.env` file
+    
+    :bangbang: _When copying URI from cloud provider, check (or change) preamble to `postgresql://`_
+    
+    - ```dotenv
+      HEROKU_SQL_DB=postgresql://<USER>:<PASSWORD>@<HOST>:<PORT>/<DATABASE>
+      ```
+      Change values in `< >` to your setup (most have a preformatted URI).
+
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+Once the Docker image is running, navigate to `localhost/docs` or `localhost/redoc` for API documentation with input capabilities.
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
+Check back later for more information.
 
 
 <!-- ROADMAP -->
@@ -132,6 +165,8 @@ Use this space to show useful examples of how a project can be used. Additional 
     - [ ] `.csv`
 - [ ] Frontend for data entry
 - [ ] Other Logbook styles (Professional and General Aviation)
+- [ ] `GET` endpoint for reports
+- [ ] More `GET` and `POST` endpoints
 
 Please suggest some features! This is a one human project (now), and new ideas welcomed to break any calcification.
 
@@ -143,12 +178,12 @@ Distributed under GPL-3.0 License. See [LICENSE](https://github.com/Daniel-Ferna
 
 <!-- Support -->
 ## Support
+Support me by buying me 1/10 of a gallon of AvGas, so I can practice my taxiing:
+* Stellar *XLM*: `GBLOUZQPCQXVQAJAHSM2PUEWKHJT5M3TAQ63LKT6KQCQPNI2X5MZSL23`
 
+Or by suggesting features and pointing out any bugs.
 
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
+**_Thank you!_**
 
 
 <!-- KNOWN ISSUES -->
