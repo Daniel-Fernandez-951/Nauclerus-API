@@ -24,14 +24,14 @@
       <ul>
         <li><a href="#installation">Installation</a></li>
           <ul>
-            <li><a href="#datastorageoptions">Data Storage Options</a></li>
+            <li><a href="#data-storage-options">Data Storage Options</a></li>
           </ul>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#knownissues">Known Issues</a></li>
+    <li><a href="#known-issues">Known Issues</a></li>
   </ol>
 </details>
 
