@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook">
-    <img src="images/logo_nauclerusV0.png" alt="Logo" width="746" height="261">
+    <img src="images/logo2-nauclerusAPIV1.png" alt="Logo" width="650" height="247.05">
   </a>
 
   <h3 align="center">General Aviation Pilot Logbook API </h3>
@@ -22,11 +22,10 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
           <ul>
             <li><a href="#datastorageoptions">Data Storage Options</a></li>
           </ul>
-        <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -62,16 +61,22 @@ For more details, checkout [requirements.txt](https://github.com/Daniel-Fernande
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Instructions for running the Dockerfile locally. Running this on a NAS device (Synology or QNAP), please refer
+Instructions for running the Dockerfile locally. 
+
+:question: Running this on a NAS device (Synology or QNAP), please refer
 to NAS distributor documentation for running Nauclerus API on your device.
 
-### Prerequisites
+### Installation
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Depending on your choice in this section <a href="#datastorageoptions">Data Storage Options</a>; either configure
+a remote database (the cloud) or save the database file locally. 
+
+* **You decide** <a href="#datastorageoptions">Data Storage Options</a>!
+* Navigate to the repository on your local machine and open a terminal window in that directory
   ```sh
-  npm install npm@latest -g
+  docker build -t <foo> . && docker run -p 80:80 -it <foo>
   ```
+  - Replace `<foo>` with your desired container name, like `thanks-daniel`.
 
 #### Data Storage Options
 * **Local Storage**: 
@@ -107,51 +112,37 @@ This is an example of how to list things you need to use the software and how to
       HEROKU_SQL_DB=sqlite:///./sql_app.db
       ```
       Change `sql_app.db` to any file name you'd like!
-
-### Installation
+  
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+- [ ] Add an endpoint for uploading logbook in the following formats:
+    - [ ] `.xls`
+    - [ ] `.xlsx`
+    - [ ] `.csv`
+- [ ] Frontend for data entry
+- [ ] Other Logbook styles (Professional and General Aviation)
 
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
+Please suggest some features! This is a one human project (now), and new ideas welcomed to break any calcification.
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under GPL-3.0 License. See [LICENSE](https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook/blob/master/LICENSE) for more information.
 
 
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+<!-- Support -->
+## Support
 
 
 
