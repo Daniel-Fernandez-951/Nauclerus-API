@@ -75,6 +75,7 @@ a remote database (the cloud) or save the database file locally.
   ```
   - Replace `<foo>` with your desired container name, like `thanks-daniel`.
 
+<!-- DATA STORAGE OPTIONS -->
 #### Data Storage Options
 * **Local Storage**: 
   - Change `/app/sqlUtils/database.py`
