@@ -9,9 +9,24 @@ from fastapi import FastAPI, Depends, HTTPException, UploadFile
 from sqlUtils import models, crud, schemas
 from sqlUtils.database import SessionLocal, engine
 
+API_VERSION = "0.0.2"
+
+
+tags_metadata = [
+    {"name": "Universal", "description": "Works with all formats"},
+    {"name": "Get GA", "description": "**ASA-SP-40** format"},
+    {"name": "Post GA", "description": "**ASA-SP-40** format"}
+]
+
+
 # Instantiate
 models.Base.metadata.create_all(bind=engine)
-app = FastAPI()
+app = FastAPI(
+    title="Nauclerus Logbook API",
+    description="Aviation logbook API for all pilots.",
+    version=API_VERSION,
+    openapi_tags=tags_metadata
+)
 
 
 # Dependency
@@ -23,30 +38,88 @@ def get_db():
         db.close()
 
 
-@app.get("/pilot/{pilot_id}", response_model=schemas.Pilot)
+@app.get("/pilot/{pilot_id}", response_model=schemas.Pilot, tags=["Universal"])
 def get_pilot(pilot_id: int, db: Session = Depends(get_db)):
+    """
+    Pass ID of pilot to get Pilot object.
+
+    - **pilot_id**: Unique ID of pilot when created
+
+    _Response:_
+    - **id**: Unique NUMBER representing Pilot
+    - **name**: Unique STRING representing Pilot
+    - **rec_flights**: LIST of flights recorded by Pilot or []
+    - **piloted_ac**: LIST of aircrafts flown by Pilot or []
+    """
     db_pilot = crud.get_pilot_by_id(db, pilot_id=pilot_id)
     return db_pilot
 
 
-@app.post("/pilot/", response_model=schemas.Pilot)
+@app.post("/pilot/", response_model=schemas.Pilot, tags=["Universal"])
 def create_pilot(pilot: schemas.PilotCreate, db: Session = Depends(get_db)):
+    """
+    Create a Pilot with a unique name. Without a Pilot, new Aircraft and Flight are not possible.
+
+    - **name**: Unique name of Pilot
+
+    _Response:_
+    - **id**: Unique NUMBER representing Pilot
+    - **name**: Unique STRING representing Pilot
+    - **rec_flights**: LIST of flights recorded by Pilot or []
+    - **piloted_ac**: LIST of aircrafts flown by Pilot or []
+    """
     db_pilot = crud.get_pilot_by_name(db, pilot_name=pilot.name)
     if db_pilot:
         raise HTTPException(status_code=400, detail="Name already registered")
     return crud.create_pilot(db=db, pilot=pilot)
 
 
-@app.post("/aircraft/{pilot_id}", response_model=schemas.Aircraft)
+@app.post("/aircraft/{pilot_id}", response_model=schemas.Aircraft, tags=["Post GA"])
 def create_aircraft(pilot_id: int, aircraft: schemas.AircraftCreate, db: Session = Depends(get_db)):
+    """
+    Create an Aircraft that is related to a Pilot. Pass Pilot ID in URL
+
+    - **tail_num**: Unique STRING representing Aircraft tail number
+
+    _Response:_
+    - **id**: Unique NUMBER representing Aircraft ID
+    - **pilot_id**: NUMBER representing Pilot
+    - **tail_num**: Unique STRING representing aircraft tail number
+    """
     return crud.create_aircraft(db=db, aircraft=aircraft, pilot_id=pilot_id)
 
 
-@app.post("/flight/", response_model=schemas.Flight)
+@app.post("/flight/", response_model=schemas.Flight, tags=["Post GA"])
 def create_flight(flight: schemas.FlightCreate,
                   pilot_id: int = None,
                   aircraft_id: int = None,
                   db: Session = Depends(get_db)):
+    """
+    Log a flight and link to a Pilot and Aircraft. Pass in Pilot ID and Aircraft ID in URL.
+
+    - **pilot_id**: Unique Pilot ID from an active Pilot
+    - **aircraft_id**: Unique Aircraft ID from an active Aircraft
+
+    _Input & Response_
+    - **flight_dt**: Flight DATE (YYYY-MM-DD)
+    - **flight_yr**: Flight year (YYYY)
+    - **dest_t**: Destination airport identifier STRING (KSFO)
+    - **dest_f**: Departure airport identifier STRING (KSFO)
+    - **notes**: Remarks and any notes about the flight STRING
+    - **ifr_app**: NUMBER of IFR approaches (default = 0)
+    - **landings**: NUMBER of landings (default = 1)
+    - **sel_t**: Single Engine Land FLOAT time (default = 0)
+    - **mel_t**: Multi-Engine Land FLOAT time (default = 0)
+    - **cross_c**: Cross-Country FLOAT time (default = 0)
+    - **day**: Day flight time FLOAT (default = 0)
+    - **night**: Night flight time FLOAT (default = 0)
+    - **actual_inst**: Actual Instrument FLOAT time (default = 0)
+    - **sim_inst**: Simulated Instrument FLOAT time (default = 0)
+    - **ground_train**: Ground Training FLOAT time (default = 0)
+    - **dual_rec**: Dual Received FLOAT time (default = 0)
+    - **pic**: Pilot In Command FLOAT time (default = 0)
+    - **ft_total**: Total Flight FLOAT time (default = 0)
+    """
     db_pilot = crud.get_pilot_by_id(db, pilot_id=pilot_id)
     db_ac = crud.get_aircraft_by_id(db, ac_id=aircraft_id)
     if db_pilot is None:
