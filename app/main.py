@@ -31,13 +31,17 @@ def custom_openapi():
         description="Aviation logbook API for all pilots.",
         routes=app.routes,
     )
-    openapi_schema["info"]["x-logo"] = {
-        "url": "/images/logo2-nauclerusAPIV1_dark.png"
-    },
     openapi_schema["servers"] = [{
         "url": "localhost",
         "description": "Development server"
     }]
+    openapi_schema["info"]["x-logo"] = {
+        "url": "/images/logo2-nauclerusAPIV1_dark.png"
+    }
+    openapi_schema["license"] = {
+        "name": "GPL-3.0",
+        "url": "/app/LICENSE"
+    }
 
     app.openapi_schema = openapi_schema
     return app.openapi_schema
