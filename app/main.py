@@ -3,15 +3,18 @@ File upload: https://stackoverflow.com/questions/64232908/how-to-add-multiple-bo
 """
 
 from sqlalchemy.orm import Session
+from fastapi.staticfiles import StaticFiles
+from fastapi.openapi.utils import get_openapi
 from fastapi import FastAPI, Depends, HTTPException, UploadFile
+
 
 # Import local packages
 from sqlUtils import models, crud, schemas
 from sqlUtils.database import SessionLocal, engine
 
+
+# OpenAPI and Doc settings
 API_VERSION = "0.0.2"
-
-
 tags_metadata = [
     {"name": "Universal", "description": "Works with all formats"},
     {"name": "Get GA", "description": "**ASA-SP-40** format"},
@@ -19,14 +22,33 @@ tags_metadata = [
 ]
 
 
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Nauclerus Logbook API",
+        version=API_VERSION,
+        description="Aviation logbook API for all pilots.",
+        routes=app.routes,
+    )
+    openapi_schema["info"]["x-logo"] = {
+        "url": "/images/logo2-nauclerusAPIV1_dark.png"
+    },
+    openapi_schema["servers"] = [{
+        "url": "localhost",
+        "description": "Development server"
+    }]
+
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
 # Instantiate
+# TODO: Test pulling BASE from `from sqlUtils.database import Base`
 models.Base.metadata.create_all(bind=engine)
-app = FastAPI(
-    title="Nauclerus Logbook API",
-    description="Aviation logbook API for all pilots.",
-    version=API_VERSION,
-    openapi_tags=tags_metadata
-)
+app = FastAPI(openapi_tags=tags_metadata)
+app.mount("/images", StaticFiles(directory="images"), name="images")
+app.openapi = custom_openapi
 
 
 # Dependency
