@@ -9,6 +9,9 @@ __pycache__/
 # PyCharm related
 venv/
 
+# Pytest Testing files
+test.db
+
 # Distribution / packaging
 .Python
 build/
