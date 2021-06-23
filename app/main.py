@@ -78,6 +78,8 @@ def get_pilot(pilot_id: int, db: Session = Depends(get_db)):
     - **piloted_ac**: LIST of aircrafts flown by Pilot or []
     """
     db_pilot = crud.get_pilot_by_id(db, pilot_id=pilot_id)
+    if db_pilot is None:
+        raise HTTPException(status_code=404, detail="Pilot with ID does not exist")
     return db_pilot
 
 
@@ -121,12 +123,12 @@ def create_flight(flight: schemas.FlightCreate,
                   aircraft_id: int = None,
                   db: Session = Depends(get_db)):
     """
-    Log a flight and link to a Pilot and Aircraft. Pass in Pilot ID and Aircraft ID in URL.
+    Log a flight and link to a Pilot and Aircraft.
 
-    - **pilot_id**: Unique Pilot ID from an active Pilot
-    - **aircraft_id**: Unique Aircraft ID from an active Aircraft
 
     _Input & Response_
+    - **pilot_id**: Unique Pilot ID from an active Pilot
+    - **aircraft_id**: Unique Aircraft ID from an active Aircraft
     - **flight_dt**: Flight DATE (YYYY-MM-DD)
     - **flight_yr**: Flight year (YYYY)
     - **dest_t**: Destination airport identifier STRING (KSFO)
