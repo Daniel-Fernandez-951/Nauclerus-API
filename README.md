@@ -16,6 +16,7 @@
     <li>
       <a href="#about-nauclerus-logbook-api">About Nauclerus Logbook API</a>
       <ul>
+        <li><a href="#database-diagram">Database Diagram</a></li>
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
@@ -44,6 +45,9 @@
 allowing secure **local** access and redundant storage using NAS device that supports running Docker containers. Nauclerus can
 also send your logbook data to a cloud service, ensuring there's always a backup of your logbook.
 
+### Database Diagram
+Relational SQL database schema and relationships (_subject to change_):
+<iframe width="560" height="315" src='https://dbdiagram.io/embed/60f885294ed9be1c05d6f2c0'> </iframe>
 
 ### Built With
 For more details, checkout [requirements.txt](https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook/blob/master/requirements.txt) file.
