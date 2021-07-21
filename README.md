@@ -49,9 +49,6 @@ also send your logbook data to a cloud service, ensuring there's always a backup
 Relational SQL database schema and relationships (_subject to change_):
 <p align="center">
     <img src="images/Nauclerus_db-diagram_v0.png" alt="diagram" width="650" height="247.05">
-  </a>
-
-  <h3 align="center">General Aviation Pilot Logbook API </h3>
 
 ### Built With
 For more details, checkout [requirements.txt](https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook/blob/master/requirements.txt) file.
