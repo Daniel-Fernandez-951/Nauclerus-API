@@ -1,9 +1,15 @@
 """
 CRUD common function used to access the data from db
 """
+import json
 
 from sqlalchemy.orm import Session
-from sqlUtils import models, schemas
+from json import encoder
+from . import models
+from .schemas.pilotSchema import PilotCreate
+from .schemas.aircraftSchema import AircraftCreate
+from .schemas.flightSchema import FlightCreate
+from .schemas.logbookSchema import LogbookCreate, LogbookMap, Logbook
 
 
 # TODO: Add more functions GET/POST and update schemas
@@ -33,15 +39,17 @@ def get_aircraft_by_id(db: Session, ac_id: int):
 
 
 # CREATE Functions
-def create_flight(db: Session, flight: schemas.FlightCreate, pilot_id: int, aircraft_id: int):
-    db_flight = models.Flight(**flight.dict(), pilot=pilot_id, aircraft=aircraft_id)
+def create_flight(db: Session, flight: FlightCreate, pilot_id: int, aircraft_id: int):
+    db_flight = models.Flight(**flight.dict())
+    db_flight.pilot_id = pilot_id
+    db_flight.aircraft_id = aircraft_id
     db.add(db_flight)
     db.commit()
     db.refresh(db_flight)
     return db_flight
 
 
-def create_aircraft(db: Session, aircraft: schemas.AircraftCreate, pilot_id: int):
+def create_aircraft(db: Session, aircraft: AircraftCreate, pilot_id: int):
     db_aircraft = models.Aircraft(**aircraft.dict(), pilot_id=pilot_id)
     db.add(db_aircraft)
     db.commit()
@@ -49,9 +57,22 @@ def create_aircraft(db: Session, aircraft: schemas.AircraftCreate, pilot_id: int
     return db_aircraft
 
 
-def create_pilot(db: Session, pilot: schemas.PilotCreate):
+def create_pilot(db: Session, pilot: PilotCreate):
     db_pilot = models.Pilot(**pilot.dict())
     db.add(db_pilot)
     db.commit()
     db.refresh(db_pilot)
     return db_pilot
+
+
+def create_logbook(db: Session, logbook: LogbookCreate):
+    # TODO: This may be wrong, need to format HEADER_TITLES to string with schema
+    db_logbook = models.Logbook(**logbook.dict())
+    db.add(db_logbook)
+    db.commit()
+    db.refresh(db_logbook)
+    return db_logbook
+
+
+# def file_upload(file: schemas):
+#     return
