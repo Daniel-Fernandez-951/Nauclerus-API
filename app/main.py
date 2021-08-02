@@ -32,7 +32,7 @@ from sqlUtils.database import SessionLocal, engine
 
 
 # OpenAPI and Doc settings
-API_VERSION = "0.0.2"
+API_VERSION = "0.0.5"
 tags_metadata = [
     {"name": "Universal", "description": "Works with all formats"},
     {"name": "Get GA", "description": "**ASA-SP-40** format"},
