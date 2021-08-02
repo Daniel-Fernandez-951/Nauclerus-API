@@ -48,7 +48,7 @@ also send your logbook data to a cloud service, ensuring there's always a backup
 ### Database Diagram
 Relational SQL database schema and relationships (_subject to change_):
 <p align="center">
-    <img src="images/Nauclerus_db-diagram_v0.png" alt="diagram" width="650" height="247.05">
+    <img src="images/Nauclerus_db-diagram_v1.png" alt="diagram" width="650" height="247.05">
 
 ### Built With
 For more details, checkout [requirements.txt](https://github.com/Daniel-Fernandez-951/GA-Pilot-Logbook/blob/master/requirements.txt) file.
