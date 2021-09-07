@@ -41,9 +41,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About Nauclerus Logbook API
 
-**API endpoint for general aviation pilots and student pilots to store their logbook data**. Nauclerus runs in a Docker container,
+**API endpoint for general aviation, rotorcraft and commercial pilots to store their logbook data**. Nauclerus runs in a Docker container,
 allowing secure **local** access and redundant storage using NAS device that supports running Docker containers. Nauclerus can
-also send your logbook data to a cloud service, ensuring there's always a backup of your logbook.
+also send your logbook data to a cloud service, ensuring there's always a backup of your logbook (at the cost of security for data redundancy).
 
 ### Database Diagram
 Relational SQL database schema and relationships (_subject to change_):
