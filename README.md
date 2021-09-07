@@ -167,7 +167,7 @@ Check back later for more information.
     - [ ] `.xlsx`
     - [ ] `.csv`
 - [ ] Frontend for data entry
-- [ ] Other Logbook styles (Professional and General Aviation)
+- [x] ~~Other Logbook styles (Professional and General Aviation)~~ Now has a general layout to accomidate all types and Logbook styles!
 - [ ] `GET` endpoint for reports
 - [ ] More `GET` and `POST` endpoints
 
