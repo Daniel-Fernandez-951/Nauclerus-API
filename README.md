@@ -5,7 +5,7 @@
     <img src="images/logo2-nauclerusAPIV1.png" alt="Logo" width="650" height="247.05">
   </a>
 
-  <h3 align="center">General Aviation Pilot Logbook API </h3>
+  <h3 align="center">Pilot Logbook API </h3>
 
 -----------------------
 
