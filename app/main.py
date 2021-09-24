@@ -34,9 +34,11 @@ from sqlUtils.database import SessionLocal, engine
 # OpenAPI and Doc settings
 API_VERSION = "0.0.5"
 tags_metadata = [
-    {"name": "Universal", "description": "Works with all formats"},
-    {"name": "Get GA", "description": "**ASA-SP-40** format"},
-    {"name": "Post GA", "description": "**ASA-SP-40** format"}
+    {"name": "Pilot", "description": "Pilot POST and GET endpoints"},
+    {"name": "Aircraft", "description": "Aircraft POST and GET endpoints"},
+    {"name": "Logbook", "description": "Logbook POST and GET endpoints"},
+    {"name": "Flight", "description": "Flight POST and GET endpoints"},
+    {"name": "Upload", "description": "Upload logbook file"}
 ]
 
 
@@ -78,7 +80,7 @@ def get_db():
         db.close()
 
 
-@app.get("/pilot/{pilot_id}", response_model=Pilot, tags=["Universal"])
+@app.get("/pilot/{pilot_id}", response_model=Pilot, summary="Get all Pilot data from pilot ID", tags=["Pilot"])
 def get_pilot(pilot_id: int, db: Session = Depends(get_db)):
     db_pilot = crud.get_pilot_by_id(db, pilot_id=pilot_id)
     if db_pilot is None:
@@ -86,7 +88,7 @@ def get_pilot(pilot_id: int, db: Session = Depends(get_db)):
     return db_pilot
 
 
-@app.post("/pilot/", response_model=Pilot, tags=["Universal"])
+@app.post("/pilot/", response_model=Pilot, summary="Make a new Pilot user", tags=["Pilot"])
 def create_pilot(pilot: PilotCreate, db: Session = Depends(get_db)):
     db_pilot = crud.get_pilot_by_name(db, pilot_name=pilot.name)
     if db_pilot:
@@ -94,17 +96,17 @@ def create_pilot(pilot: PilotCreate, db: Session = Depends(get_db)):
     return crud.create_pilot(db=db, pilot=pilot)
 
 
-@app.post("/logbook/", tags=["Universal"])
+@app.post("/logbook/", summary="Define Logbook layout to match uploaded fields to database", tags=["Logbook"])
 def create_logbook(logbook: LogbookCreate, db: Session = Depends(get_db)):
     return crud.create_logbook(db=db, logbook=logbook)
                                                 
 
-@app.post("/aircraft/{pilot_id}", response_model=Aircraft, tags=["Post GA"])
+@app.post("/aircraft/{pilot_id}", response_model=Aircraft, summary="Create new Aircraft linked to Pilot", tags=["Aircraft"])
 def create_aircraft(pilot_id: int, aircraft: AircraftCreate, db: Session = Depends(get_db)):
     return crud.create_aircraft(db=db, aircraft=aircraft, pilot_id=pilot_id)
 
 
-@app.post("/flight/", response_model=Flight, tags=["Post GA"])
+@app.post("/flight/", response_model=Flight, summary="Create a new Flight", tags=["Flight"])
 def create_flight(flight: FlightCreate,
                   pilot_id: int = None,
                   aircraft_id: int = None,
@@ -118,11 +120,11 @@ def create_flight(flight: FlightCreate,
     return crud.create_flight(db=db, flight=flight, pilot_id=pilot_id, aircraft_id=aircraft_id)
 
 
-@app_up.post("/upload/ASA-SP-40/")
-def upload_file_asasp40(file: UploadFile = File(...),
-                        pilot_id: int = None,
-                        aircraft_id: int = None,
-                        db: Session = Depends(get_db)):
+@app_up.post("/upload/", summary="Upload Logbook data from outside source", tags=["Upload"])
+def upload_logbook(file: UploadFile = File(...),
+                   pilot_id: int = None,
+                   aircraft_id: int = None,
+                   db: Session = Depends(get_db)):
     if pilot_id or aircraft_id is None:
         raise HTTPException(status_code=422, detail="Pilot and Aircraft ID are required.")
 
