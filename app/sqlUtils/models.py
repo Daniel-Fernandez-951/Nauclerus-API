@@ -49,7 +49,7 @@ class Aircraft(Base):
 
     id = Column(Integer, primary_key=True, index=True, unique=True)
     pilot_id = Column(Integer, ForeignKey("pilots.id"))
-    ac_tail = Column(String, unique=True, nullable=False)
+    ac_tail = Column(String, nullable=False)
     ac_mm = Column(String, nullable=False)
     is_retractable = Column(Boolean, default=False)
 
