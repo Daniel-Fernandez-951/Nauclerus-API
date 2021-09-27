@@ -47,7 +47,7 @@ class Aircraft(Base):
     # TODO: Is it AIRPLANE, HELI, GLIDER, LS, etc.
     __tablename__ = "aircraft"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, unique=True)
     pilot_id = Column(Integer, ForeignKey("pilots.id"))
     ac_tail = Column(String, unique=True, nullable=False)
     ac_mm = Column(String, nullable=False)
