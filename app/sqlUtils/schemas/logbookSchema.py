@@ -1,19 +1,7 @@
-import inspect
-from pydantic import BaseModel, BaseConfig
+from pydantic import BaseModel
+from typing import Dict, List, Any
 
 
-def stringify(*fields):
-    def dec(_cls):
-        for field in fields:
-            _cls.__fields__[field].required = False
-        return _cls
-    if fields and inspect.isclass(fields[0]) and issubclass(fields[0], BaseModel):
-        cls = fields[0]
-        fields = cls.__fields__
-        return dec(cls)
-
-
-@stringify
 class LogbookMap(BaseModel):
 
     class Config:
@@ -64,3 +52,4 @@ class LogbookCreate(LogbookBase):
 
 class Logbook(LogbookBase):
     id: int
+    
