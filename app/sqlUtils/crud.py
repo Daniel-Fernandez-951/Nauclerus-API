@@ -30,8 +30,12 @@ def get_flight_by_year(db: Session, flight_year: int):
     return db.query(models.Flight).filter(models.Flight.flight_yr == flight_year).all()
 
 
+def get_logbook_by_pilot(db: Session, pilot_id: int):
+    return db.query(models.Logbook).filter(models.Logbook.pilot_id == pilot_id).all()
+
+
 def get_aircraft_by_tail(db: Session, tail_numb: str):
-    return db.query(models.Aircraft).filter(models.Aircraft.tail_num == tail_numb).first()
+    return db.query(models.Aircraft).filter(models.Aircraft.ac_tail == tail_numb).first()
 
 
 def get_aircraft_by_id(db: Session, ac_id: int):
@@ -74,5 +78,12 @@ def create_logbook(db: Session, logbook: LogbookCreate):
     return db_logbook
 
 
-# def file_upload(file: schemas):
-#     return
+# DELETE Functions
+def delete_logbook_map(db: Session, pilot_id: int, logbook_id: int):
+    rm_logbook = db.query(models.Logbook)\
+        .filter(models.Logbook.id == logbook_id,
+                models.Logbook.pilot_id == pilot_id)\
+        .first()
+    db.delete(rm_logbook)
+    db.commit()
+    return rm_logbook
