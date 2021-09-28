@@ -25,7 +25,6 @@ class Pilot(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, unique=True)
 
-    # logbook = relationship("Logbook", back_populates="logbook_mask")
     rec_flights = relationship("Flight", back_populates="pilot_flights")
     piloted_ac = relationship("Aircraft", back_populates="pilot_ac")
 
@@ -37,9 +36,6 @@ class Logbook(Base):
     pilot_id = Column(Integer, ForeignKey("pilots.id"))
     logbook_style = Column(String, nullable=False, unique=True)
     header_titles = Column(JSONB)
-
-    # TODO: Fix LOGBOOK relationship to PILOT
-    # logbook_mask = relationship("Pilot", back_populates="logbook")
 
 
 class Aircraft(Base):
