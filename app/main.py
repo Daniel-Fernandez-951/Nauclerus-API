@@ -11,10 +11,10 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException, File, UploadFile
 
 from sqlUtils import models, crud
 from sqlUtils.database import SessionLocal, engine
+from sqlUtils.schemas.logbookSchema import LogbookCreate
 from sqlUtils.schemas.pilotSchema import Pilot, PilotCreate
 from sqlUtils.schemas.flightSchema import Flight, FlightCreate
 from sqlUtils.schemas.aircraftSchema import Aircraft, AircraftCreate
-from sqlUtils.schemas.logbookSchema import LogbookCreate, Logbook
 
 
 class UploadRoute(APIRoute):
