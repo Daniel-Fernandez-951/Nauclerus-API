@@ -19,9 +19,8 @@ class PilotCreate(PilotBase):
 # Model for reading/returning
 class Pilot(PilotBase):
     id: int
-    rec_flights: List[Flight] = []
-    piloted_ac: List[Aircraft] = []
-    logbook: List[Logbook] = []
+    rec_flights: List[Flight]
+    piloted_ac: List[Aircraft]
 
     class Config:
         orm_mode = True
