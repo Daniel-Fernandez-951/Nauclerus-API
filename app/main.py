@@ -65,8 +65,7 @@ app.openapi = custom_openapi
 
 origins = [
     "http://api.danielf.com",
-    "https://api.danielf.com",
-    "0.0.0.0:80"
+    "https://api.danielf.com"
 ]
 
 app.add_middleware(
