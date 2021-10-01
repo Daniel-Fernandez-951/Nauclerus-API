@@ -169,6 +169,6 @@ def upload_logbook_file(file: UploadFile = File(...),
 
 app.include_router(app_up)
 
-# Debugging portion
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, debug=True, reload=True)
+# # Debugging portion
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="0.0.0.0", port=8080, debug=True, reload=True)
