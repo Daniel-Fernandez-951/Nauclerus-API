@@ -1,5 +1,5 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
-EXPOSE 8080
+EXPOSE 443
 
 RUN apt-get update && apt-get install -y git
 RUN git clone https://github.com/Daniel-Fernandez-951/Nauclerus-API
