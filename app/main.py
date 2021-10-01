@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from fastapi.routing import APIRoute
 from fastapi.openapi.utils import get_openapi
 from starlette.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, File, UploadFile
 
 from sqlUtils import models, crud
@@ -62,6 +63,19 @@ app = FastAPI(openapi_tags=TAGS_METADATA)
 app.mount("/images", StaticFiles(directory="images"), name="images")
 app.openapi = custom_openapi
 
+origins = [
+    "http://api.danielf.com",
+    "https://api.danielf.com",
+    "0.0.0.0:80"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Dependency
 def get_db():
@@ -169,6 +183,6 @@ def upload_logbook_file(file: UploadFile = File(...),
 
 app.include_router(app_up)
 
-# Debugging portion
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, debug=True, reload=True)
+# # Debugging portion
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="0.0.0.0", port=8080, debug=True, reload=True)
