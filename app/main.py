@@ -73,7 +73,7 @@ def get_db():
 
 
 # Root Status Check
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def root_status():
     return HTTPException(status_code=200, detail="Navigate to `/docs` or `/redoc`")
 
