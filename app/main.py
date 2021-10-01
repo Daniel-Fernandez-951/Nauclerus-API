@@ -72,6 +72,12 @@ def get_db():
         db.close()
 
 
+# Root Status Check
+@app.get("/")
+def root_status():
+    return HTTPException(status_code=200, detail="Navigate to `/docs` or `/redoc`")
+
+
 # Endpoints
 @app.get("/pilot/{pilot_id}",
          response_model=Pilot,
