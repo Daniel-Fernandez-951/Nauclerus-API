@@ -27,7 +27,7 @@ class UploadRoute(APIRoute):
 app_up = APIRouter(route_class=UploadRoute)
 
 # OpenAPI and Doc settings
-API_VERSION = "0.0.5"
+API_VERSION = "0.0.6"
 TAGS_METADATA = [
     {"name": "Pilot", "description": "Pilot POST and GET endpoints"},
     {"name": "Aircraft", "description": "Aircraft POST and GET endpoints"},
