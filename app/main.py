@@ -8,7 +8,7 @@ from fastapi.routing import APIRoute
 from fastapi.openapi.utils import get_openapi
 from starlette.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, File, UploadFile
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, File, UploadFile, status
 
 from sqlUtils import models, crud
 from sqlUtils.database import SessionLocal, engine
@@ -102,6 +102,7 @@ def g_pilot(pilot_id: int, db: Session = Depends(get_db)):
 @app.post("/pilot/new/",
           response_model=Pilot,
           summary="Make a new Pilot user",
+          status_code=status.HTTP_201_CREATED,
           tags=["Pilot"])
 def p_pilot(pilot: PilotCreate, db: Session = Depends(get_db)):
     db_pilot = crud.get_pilot_by_name(db, pilot_name=pilot.name)
@@ -121,6 +122,7 @@ def g_logbook(pilot_id: int = None, db: Session = Depends(get_db)):
 
 @app.post("/logbook/",
           summary="Define Logbook layout to match uploaded fields to database",
+          status_code=status.HTTP_201_CREATED,
           tags=["Logbook"])
 def p_logbook(logbook: LogbookCreate, db: Session = Depends(get_db)):
     return crud.create_logbook(db=db, logbook=logbook)
@@ -128,6 +130,7 @@ def p_logbook(logbook: LogbookCreate, db: Session = Depends(get_db)):
 
 @app.delete("/logbook/rm",
             summary="Remove pilot's uploaded logbook map",
+            status_code=status.HTTP_202_ACCEPTED,
             tags=["Logbook"])
 def del_logbook(pilot_id: int, logbook_id: int, db: Session = Depends(get_db)):
     return crud.delete_logbook_map(db=db, pilot_id=pilot_id, logbook_id=logbook_id)
@@ -146,12 +149,17 @@ def search_tn(ac_tail: str = None, db: Session = Depends(get_db)):
 @app.post("/aircraft/new/{pilot_id}",
           response_model=Aircraft,
           summary="Create new Aircraft linked to Pilot",
+          status_code=status.HTTP_201_CREATED,
           tags=["Aircraft"])
 def p_aircraft(pilot_id: int, aircraft: AircraftCreate, db: Session = Depends(get_db)):
     return crud.create_aircraft(db=db, aircraft=aircraft, pilot_id=pilot_id)
 
 
-@app.post("/flight/", response_model=Flight, summary="Create a new Flight", tags=["Flight"])
+@app.post("/flight/",
+          response_model=Flight,
+          summary="Create a new Flight",
+          status_code=status.HTTP_201_CREATED,
+          tags=["Flight"])
 def p_flight(flight: FlightCreate,
              pilot_id: int = None,
              aircraft_id: int = None,
@@ -166,7 +174,8 @@ def p_flight(flight: FlightCreate,
 
 
 @app_up.post("/upload/{pilot_id}",
-             summary="Upload Logbook data from outside source",
+             summary="Upload Logbook data from CSV file",
+             status_code=status.HTTP_201_CREATED,
              tags=["Upload"])
 def upload_logbook_file(file: UploadFile = File(...),
                         pilot_id: int = None,
