@@ -11,4 +11,5 @@ RUN pip install -r requirements.txt
 # Copy application
 COPY ./app /app
 COPY ./images /app/images
+# Remove line if using system enviornment variables
 COPY .env /app
