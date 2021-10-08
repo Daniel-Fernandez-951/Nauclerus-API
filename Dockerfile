@@ -1,7 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 RUN git clone https://github.com/Daniel-Fernandez-951/Nauclerus-API
 
 # Get project specific requirements
