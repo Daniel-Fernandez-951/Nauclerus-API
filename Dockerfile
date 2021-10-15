@@ -1,15 +1,12 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
-
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-RUN git clone https://github.com/Daniel-Fernandez-951/Nauclerus-API
-
-# Get project specific requirements
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-
-# Copy application
-COPY ./app /app
-COPY ./images /app/images
-# Remove line if using system enviornment variables
-COPY .env /app
+RUN apt-get update && \
+    apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/* && \
+    git clone https://github.com/Daniel-Fernandez-951/Nauclerus-API && \
+    mv -v Nauclerus-API/app/* /app && \
+    mv -v Nauclerus-API/requirements.txt /app && \
+    mkdir /app/images && \
+    mv -v Nauclerus-API/images/* /app/images && \
+    pip install -r requirements.txt && \
+    rm -rf Nauclerus-API
