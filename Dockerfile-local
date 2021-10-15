@@ -1,0 +1,13 @@
+FROM tiangolo/uvicorn-gunicorn:python3.8
+
+
+RUN apt-get update && apt-get install -y git
+# Get project specific requirements
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+# Copy application
+COPY ./app /app
+COPY ./images/logo2-nauclerusAPIV1_dark.png /app/images
+# Remove line if using system enviornment variables
+COPY .env /app
