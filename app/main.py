@@ -27,6 +27,7 @@ class UploadRoute(APIRoute):
 app_up = APIRouter(route_class=UploadRoute)
 
 # OpenAPI and Doc settings
+LOGO_PATH = "/app/logo/logo2-nauclerusAPIV1_dark.png"
 API_VERSION = "0.0.6"
 TAGS_METADATA = [
     {"name": "Pilot", "description": "Pilot POST and GET endpoints"},
