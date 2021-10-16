@@ -5,6 +5,7 @@ from io import StringIO
 from typing import Callable
 from sqlalchemy.orm import Session
 from fastapi.routing import APIRoute
+from fastapi.responses import FileResponse
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, File, UploadFile, status
