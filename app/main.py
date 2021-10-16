@@ -60,7 +60,6 @@ def custom_openapi():
 # Instantiate
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI(openapi_tags=TAGS_METADATA)
-app.mount("/images", StaticFiles(directory="images"), name="images")
 app.openapi = custom_openapi
 
 origins = [
