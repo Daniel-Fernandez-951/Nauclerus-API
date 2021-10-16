@@ -6,7 +6,7 @@ RUN apt-get update && \
     git clone https://github.com/Daniel-Fernandez-951/Nauclerus-API && \
     mv -v Nauclerus-API/app/* /app && \
     mv -v Nauclerus-API/requirements.txt /app && \
-    mkdir /app/images && \
-    mv -v Nauclerus-API/images/* /app/images && \
+    mkdir /app/logo && \
+    mv -v Nauclerus-API/images/logo2-nauclerusAPIV1_dark.png /app/logo/ && \
     pip install -r requirements.txt && \
     rm -rf Nauclerus-API
