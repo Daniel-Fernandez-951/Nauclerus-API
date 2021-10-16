@@ -87,6 +87,14 @@ def get_db():
         db.close()
 
 
+# Logo Endpoint
+@app.get("/",
+         include_in_schema=False,
+         status_code=status.HTTP_200_OK)
+def get_logo():
+    return FileResponse(LOGO_PATH)
+
+
 # Endpoints
 @app.get("/pilot/{pilot_id}",
          response_model=Pilot,
