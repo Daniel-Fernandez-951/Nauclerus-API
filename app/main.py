@@ -48,7 +48,7 @@ def custom_openapi():
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {
-        "url": "/images/logo2-nauclerusAPIV1_dark.png"
+        "url": "/"
     }
     openapi_schema["license"] = {
         "name": "GPL-3.0",
