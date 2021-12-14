@@ -40,7 +40,7 @@ class LogbookMap(BaseModel):
 
 
 class LogbookBase(BaseModel):
-    pilot_id: int
+    pilot_id: str
     logbook_style: str
     header_titles: LogbookMap
 
@@ -50,5 +50,5 @@ class LogbookCreate(LogbookBase):
 
 
 class Logbook(LogbookBase):
-    id: int
+    id: str
     

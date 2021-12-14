@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 from datetime import date
 from typing import Optional
 from .aircraftSchema import Aircraft
 
 
 class FlightBase(BaseModel):
-    pilot_id: int
-    aircraft_id: int
+    pilot_id: UUID4
+    aircraft_id: UUID4
     year: int
     date: date
     fl_from: str
@@ -43,7 +43,7 @@ class FlightCreate(FlightBase):
 
 
 class Flight(FlightBase):
-    pass
 
     class Config:
         orm_mode = True
+    pass
