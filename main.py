@@ -1,20 +1,37 @@
 from fastapi import FastAPI
 from starlette.responses import HTMLResponse
+from fastapi.openapi.utils import get_openapi
 # Import local files
 from models import models
 from database.configuration import engine
 # Import router files
-from core import Auth, Aircraft, Flight, Logbook, Pilot
+from core import Auth, Aircraft, Flight, Logbook, Pilot, Upload
+from config.open_api import TAGS_METADATA, API_VERSION
 
-API_VERSION = "1.0"
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Nauclerus Logbook API",
+        version=API_VERSION,
+        description="Aviation logbook API for all pilots.",
+        routes=app.routes,
+    )
+    openapi_schema["info"]["x-logo"] = {
+        "url": "/"
+    }
+    openapi_schema["license"] = {
+        "name": "GPL-3.0",
+        "url": "/app/LICENSE"
+    }
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
 
 models.Base.metadata.create_all(bind=engine)
-
-app = FastAPI(
-    title="Nauclerus API",
-    description="Logbook API for all Pilots",
-    version=API_VERSION
-)
+app = FastAPI(openapi_tags=TAGS_METADATA)
+app.openapi = custom_openapi
 
 app.include_router(Pilot.router)
 # app.include_router(Aircraft.router)
