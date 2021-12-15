@@ -43,5 +43,5 @@ def p_pilot(pilot: PilotCreate, db: Session = Depends(get_db)):
     db_pilot = pilot_crud.get_pilot_by_email(db, pilot_email=pilot.email, verify_only=True)
     if db_pilot:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-                            detail="Name already registered")
+                            detail="Email already registered")
     return pilot_crud.create_pilot_user(db=db, pilot=pilot)
