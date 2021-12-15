@@ -26,9 +26,13 @@ def get_pilot_by_id(db: Session, pilot_id: str):
     return query
 
 
-def get_pilot_by_email(db: Session, pilot_email: str):
+def get_pilot_by_email(db: Session,
+                       pilot_email: str,
+                       verify_only: bool = False):
     query = db.query(models.Pilot).filter(models.Pilot.email == pilot_email).first()
-    if len(query) == 0:
+    if verify_only is True:
+        return query
+    if not query:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Pilot with email {pilot_email} not found")
     return query

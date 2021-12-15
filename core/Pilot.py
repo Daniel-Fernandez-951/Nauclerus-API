@@ -27,7 +27,7 @@ def g_pilot(db: Session = Depends(get_db),
             response_model=Pilot,
             summary="Get all Pilot data by email",
             status_code=status.HTTP_200_OK)
-def g_pilot_name(db: Session = Depends(get_db),
+def g_pilot_email(db: Session = Depends(get_db),
                  token_data: TokenData = Depends(get_current_user)):
     db_pilot = pilot_crud.get_pilot_by_email(db, pilot_email=token_data.email)
     if not db_pilot:
@@ -40,8 +40,8 @@ def g_pilot_name(db: Session = Depends(get_db),
              summary="Make a new Pilot user (required for login)",
              status_code=status.HTTP_201_CREATED)
 def p_pilot(pilot: PilotCreate, db: Session = Depends(get_db)):
-    # db_pilot = pilot_crud.get_pilot_by_email(db, pilot_email=pilot.email)
-    # if db_pilot:
-    #     raise HTTPException(status_code=status.HTTP_409_CONFLICT,
-    #                         detail="Name already registered")
+    db_pilot = pilot_crud.get_pilot_by_email(db, pilot_email=pilot.email, verify_only=True)
+    if db_pilot:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail="Name already registered")
     return pilot_crud.create_pilot_user(db=db, pilot=pilot)
