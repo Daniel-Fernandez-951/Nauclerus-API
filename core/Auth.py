@@ -10,7 +10,7 @@ from schema.hash import Hash
 from schema.token import TOKEN_TTL_EXPIRE_MINUTES, create_access_token
 
 router = APIRouter(prefix="/login", tags=["Authentication"],
-                   include_in_schema=True)
+                   include_in_schema=False)
 
 
 @router.post("/")
