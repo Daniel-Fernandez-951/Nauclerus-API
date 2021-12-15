@@ -11,13 +11,13 @@ router = APIRouter(tags=["Pilot"], prefix="/pilot")
 get_db = configuration.get_db
 
 
-@router.get("/id/{pilot_id}",
+@router.get("/id",
             response_model=Pilot,
             summary="Get all Pilot data by pilot ID",
             status_code=status.HTTP_200_OK)
-def g_pilot(pilot_id: str,
-            db: Session = Depends(get_db)):
-    db_pilot = pilot_crud.get_pilot_by_id(db, pilot_id=pilot_id)
+def g_pilot(db: Session = Depends(get_db),
+            token_data: TokenData = Depends(get_current_user)):
+    db_pilot = pilot_crud.get_pilot_by_id(db, pilot_id=token_data.pilot_id)
     if db_pilot is None:
         raise HTTPException(status_code=422, detail="Pilot ID required.")
     return db_pilot
