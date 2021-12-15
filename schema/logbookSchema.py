@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 
 
 class LogbookMap(BaseModel):
@@ -40,7 +40,7 @@ class LogbookMap(BaseModel):
 
 
 class LogbookBase(BaseModel):
-    pilot_id: str
+    pilot_id: UUID4
     logbook_style: str
     header_titles: LogbookMap
 
@@ -50,5 +50,5 @@ class LogbookCreate(LogbookBase):
 
 
 class Logbook(LogbookBase):
-    id: str
+    id: UUID4
     
