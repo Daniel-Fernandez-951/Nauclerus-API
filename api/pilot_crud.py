@@ -20,7 +20,7 @@ def create_pilot_user(db: Session, pilot: PilotCreate):
 
 def get_pilot_by_id(db: Session, pilot_id: str):
     query = db.query(models.Pilot).filter(models.Pilot.id == pilot_id).first()
-    if len(query) == 0:
+    if query is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Pilot with id {pilot_id} not found")
     return query
