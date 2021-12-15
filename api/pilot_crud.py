@@ -20,11 +20,15 @@ def create_pilot_user(db: Session, pilot: PilotCreate):
 
 def get_pilot_by_id(db: Session, pilot_id: str):
     query = db.query(models.Pilot).filter(models.Pilot.id == pilot_id).first()
-    if query == 0:
+    if len(query) == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Pilot with id {pilot_id} not found")
     return query
 
 
 def get_pilot_by_email(db: Session, pilot_email: str):
-    return db.query(models.Pilot).filter(models.Pilot.email == pilot_email).first()
+    query = db.query(models.Pilot).filter(models.Pilot.email == pilot_email).first()
+    if len(query) == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Pilot with email {pilot_email} not found")
+    return query
