@@ -21,6 +21,7 @@ app.include_router(Pilot.router)
 app.include_router(Logbook.router)
 # app.include_router(Flight.router)
 app.include_router(Auth.router)
+app.include_router(Upload.router)
 
 
 @app.get("/",
