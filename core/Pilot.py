@@ -28,7 +28,7 @@ def g_pilot(db: Session = Depends(get_db),
             summary="Get all Pilot data by email",
             status_code=status.HTTP_200_OK)
 def g_pilot_email(db: Session = Depends(get_db),
-                 token_data: TokenData = Depends(get_current_user)):
+                  token_data: TokenData = Depends(get_current_user)):
     db_pilot = pilot_crud.get_pilot_by_email(db, pilot_email=token_data.email)
     if not db_pilot:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Name not found")
