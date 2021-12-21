@@ -22,6 +22,7 @@ def create_logbook(db: Session, logbook: LogbookCreate, pilot_id: str):
     db.add(db_logbook)
     db.commit()
     db.refresh(db_logbook)
+    db.close()
     return db_logbook
 
 
