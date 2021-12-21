@@ -1,6 +1,6 @@
+from typing import List, Optional
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, status
-from typing import List, Optional
 
 from api import logbook_crud
 from database import configuration
@@ -25,7 +25,6 @@ def get_logbook(db: Session = Depends(get_db),
 
 
 @router.post("/new",
-             response_model=Logbook,
              summary="Get all logbook maps uploaded by pilot",
              status_code=status.HTTP_201_CREATED)
 def post_logbook(logbook: LogbookCreate,
