@@ -19,7 +19,6 @@ def create_logbook(db: Session, logbook: LogbookCreate, pilot_id: str):
     logbook = logbook.dict()
     logbook.update(pilot_id=pilot_id)
     db_logbook = models.Logbook(**logbook)
-    breakpoint()
     db.add(db_logbook)
     db.commit()
     db.refresh(db_logbook)
