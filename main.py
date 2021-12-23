@@ -33,6 +33,7 @@ def custom_openapi():
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
+
 # Custom Docs
 rapidoc = Jinja2Templates(directory="static")
 
