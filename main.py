@@ -1,14 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from starlette.responses import HTMLResponse
 from fastapi.openapi.utils import get_openapi
-from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 # Import local files
 from models import models
 from database.configuration import engine
 # Import router files
 from core import Auth, Aircraft, Flight, Logbook, Pilot, Upload
 from config.open_api import TAGS_METADATA, API_VERSION, MOESIF_SETTINGS
-
 # API Metrics--MOESIF
 from moesifasgi import MoesifMiddleware
 
@@ -33,6 +33,8 @@ def custom_openapi():
     app.openapi_schema = openapi_schema
     return app.openapi_schema
 
+# Custom Docs
+rapidoc = Jinja2Templates(directory="static")
 
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI(openapi_tags=TAGS_METADATA)
@@ -53,37 +55,5 @@ app.include_router(Upload.router)
 @app.get("/",
          response_class=HTMLResponse,
          include_in_schema=False)
-def index():
-    return """
-    <!doctype html> <!-- Important: must specify -->
-<html>
-  <head>
-    <meta charset="utf-8"> <!-- Important: rapi-doc uses utf8 characters -->
-    <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
-  </head>
-  <body>
-    <rapi-doc 
-      spec-url = "openapi.json"
-      theme = "dark"
-      schema-style = "table"
-      render-style = "view"
-      allow-spec-url-load = "false"
-      allow-spec-file-load = "false"
-      >
-    <img slot="logo" src="/static/logo2-nauclerusAPIV1_dark.png" style="width:200px; height:75px"/>
-    </rapi-doc>
-  </body>
-</html>
-    """
-# """
-    # <!Doctype html>
-    # <html>
-    #     <body>
-    #         <h1>Nauclerus API</h1>
-    #         <div class="btn-group">
-    #             <a href="/docs"><button>SwaggerUI</button></a>
-    #             <a href="/redoc"><button>Redoc</button></a>
-    #         </div>
-    #     </body>
-    # </html>
-    # """
+def index(request: Request):
+    return rapidoc.TemplateResponse("html/rapidoc.html", {"request": request})
