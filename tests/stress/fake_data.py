@@ -1,6 +1,4 @@
 import random
-import json
-
 from faker import Faker
 
 # Faker Generator
@@ -48,7 +46,6 @@ class NewLogbook:
         self.pilot_id = "overridden"
         self.logbook_style = fake_gen.text(max_nb_chars=20)
         self.header_titles = LogbookMap().__dict__
-
 
 
 class LoadedPilot:
