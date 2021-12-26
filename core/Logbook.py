@@ -15,7 +15,7 @@ router = APIRouter(tags=["Logbook"],
 get_db = configuration.get_db
 
 
-@router.get("/pilot/",
+@router.get("/pilot",
             response_model=Optional[List[Logbook]],
             summary="Get all logbook maps uploaded by pilot",
             status_code=status.HTTP_200_OK)
