@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 
-from schema.oa2 import get_current_user
-from database import configuration
-from schema.pilotSchema import Pilot, PilotCreate, PilotSecure
-from schema.tokenSchema import TokenData
-from api import pilot_crud
+from app.schema.oa2 import get_current_user
+from app.database import configuration
+from app.schema.pilotSchema import Pilot, PilotCreate, PilotSecure
+from app.schema.tokenSchema import TokenData
+from app.api import pilot_crud
 
 router = APIRouter(tags=["Pilot"], prefix="/pilot")
 get_db = configuration.get_db

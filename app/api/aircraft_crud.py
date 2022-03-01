@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from models import models
-from schema.aircraftSchema import AircraftCreate
+from app.models import models
+from app.schema.aircraftSchema import AircraftCreate
 
 
 def get_aircraft_by_tail(db: Session, tail_numb: str):

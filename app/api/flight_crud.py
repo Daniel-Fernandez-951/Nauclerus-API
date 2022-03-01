@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from models import models
-from schema.flightSchema import FlightCreate
+from app.models import models
+from app.schema.flightSchema import FlightCreate
 
 
 def get_flight_by_date(db: Session, flight_date: str):

@@ -2,11 +2,11 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, status
 
-from api import logbook_crud
-from database import configuration
-from schema.oa2 import get_current_user
-from schema.tokenSchema import TokenData
-from schema.logbookSchema import Logbook, LogbookCreate
+from app.api import logbook_crud
+from app.database import configuration
+from app.schema.oa2 import get_current_user
+from app.schema.tokenSchema import TokenData
+from app.schema.logbookSchema import Logbook, LogbookCreate
 
 
 router = APIRouter(tags=["Logbook"],

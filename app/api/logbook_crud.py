@@ -1,8 +1,8 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
-from models import models
-from schema.logbookSchema import LogbookCreate
+from app.models import models
+from app.schema.logbookSchema import LogbookCreate
 
 
 def get_logbook_by_pilot(db: Session, pilot_id: str):

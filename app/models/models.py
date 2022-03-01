@@ -1,7 +1,3 @@
-"""
-Source: https://fastapi.tiangolo.com/tutorial/sql-databases/#create-a-database-url-for-sqlalchemy
-"""
-
 import datetime
 import uuid
 
@@ -11,7 +7,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric, Boolean, DateTime
 
 # Local import
-from database.configuration import Base
+from app.database.configuration import Base
 
 
 def _get_date():

@@ -1,6 +1,9 @@
 
 # OpenAPI and Doc settings
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 MOESIF_API_KEY = os.getenv('MOESIF_API')
 LOGO_PATH = "/app/logo/logo2-nauclerusAPIV1_dark.png"

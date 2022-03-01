@@ -5,9 +5,9 @@ from typing import Callable
 import pandas as pd
 from io import StringIO
 
-from database import configuration
-from schema.oa2 import get_current_user
-from schema.tokenSchema import TokenData
+from app.database import configuration
+from app.schema.oa2 import get_current_user
+from app.schema.tokenSchema import TokenData
 
 
 get_db = configuration.get_db

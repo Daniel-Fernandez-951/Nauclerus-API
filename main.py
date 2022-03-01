@@ -1,16 +1,22 @@
+import sys
+import uvicorn
+import traceback
 from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
-from starlette.responses import HTMLResponse
 from fastapi.openapi.utils import get_openapi
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-# Import local files
-from models import models
-from database.configuration import engine
-# Import router files
-from core import Auth, Aircraft, Flight, Logbook, Pilot, Upload
-from config.open_api import TAGS_METADATA, API_VERSION, MOESIF_SETTINGS
 # API Metrics--MOESIF
 from moesifasgi import MoesifMiddleware
+from starlette.responses import HTMLResponse
+
+# Import Run config
+import app.config.run_config as cfg
+from app.config.open_api import TAGS_METADATA, API_VERSION, MOESIF_SETTINGS
+# Import router files
+from app.core import Auth, Logbook, Pilot, Upload
+from app.database.configuration import engine
+# Import local files
+from app.models import models
 
 
 def custom_openapi():
@@ -58,3 +64,25 @@ app.include_router(Upload.router)
          include_in_schema=False)
 def index(request: Request):
     return rapidoc.TemplateResponse("html/rapidoc.html", {"request": request})
+
+
+if __name__ == '__main__':
+    print(f"Starting Nauclerus API --> {cfg.api['host']}:{cfg.api['port']}\n")
+
+    try:
+        uvicorn.run(
+            "main:app",
+            host=cfg.api['host'],
+            port=cfg.api['port'],
+            workers=int(cfg.api['workers']),
+            log_level=cfg.api['log_level'],
+            reload=bool(cfg.api['reload']),
+            debug=bool(cfg.api['debug'])
+        )
+    except KeyboardInterrupt:
+        print(f"Stopping Nauclerus API")
+    except Exception as e:
+        print(f"Start Failed\n{'#'*100}")
+        traceback.print_exc(file=sys.stdout)
+        print(f"Exiting\n{'#'*100}")
+    print("\n\n")
