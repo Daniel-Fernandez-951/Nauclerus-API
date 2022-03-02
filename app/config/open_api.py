@@ -7,7 +7,7 @@ load_dotenv()
 
 MOESIF_API_KEY = os.getenv('MOESIF_API')
 LOGO_PATH = "/app/logo/logo2-nauclerusAPIV1_dark.png"
-API_VERSION = "0.1.0"
+API_VERSION = "0.2.0"
 TAGS_METADATA = [
     {"name": "Pilot", "description": "Pilot POST and GET endpoints"},
     {"name": "Aircraft", "description": "Aircraft POST and GET endpoints"},
