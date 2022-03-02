@@ -1,13 +1,7 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
+COPY . /app
 
-RUN apt-get update && apt-get install -y git
-# Get project specific requirements
-COPY requirements.txt /app
-RUN pip install -r requirements.txt
-
-# Copy application
-COPY /app /app
-COPY /images/logo2-nauclerusAPIV1_dark.png /app/logo/
-
-RUN rm -rf /app/tests
+RUN apt-get update && \
+    pip install --upgrade pip && \
+    pip install --no-cache-dir --upgrade -r /app/requirements_dev.txt

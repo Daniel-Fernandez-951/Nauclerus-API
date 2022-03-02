@@ -1,0 +1,15 @@
+[Unit]
+Description=Nauclerus API
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+ExecStart=/opt/api/env/bin/python /app/Nauclerus-API/main.py
+StandardOutput=file:/opt/api/logs/api.log
+StandardInput=tty-force
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

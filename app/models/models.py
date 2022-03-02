@@ -1,14 +1,13 @@
-"""
-Source: https://fastapi.tiangolo.com/tutorial/sql-databases/#create-a-database-url-for-sqlalchemy
-"""
-
 import datetime
-from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric, Boolean
+import uuid
+
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric, Boolean, DateTime
 
 # Local import
-from .database import Base
+from app.database.configuration import Base
 
 
 def _get_date():
@@ -22,8 +21,14 @@ def _get_year():
 class Pilot(Base):
     __tablename__ = "pilots"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False, unique=True)
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                index=True, default=uuid.uuid4,
+                nullable=False, unique=True,
+                autoincrement=False)
+    name = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+    email = Column(String, nullable=False, unique=True)
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
 
     rec_flights = relationship("Flight", back_populates="pilot_flights")
     piloted_ac = relationship("Aircraft", back_populates="pilot_ac")
@@ -32,19 +37,24 @@ class Pilot(Base):
 class Logbook(Base):
     __tablename__ = "logbook"
 
-    id = Column(Integer, primary_key=True, index=True)
-    pilot_id = Column(Integer, ForeignKey("pilots.id"))
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                index=True, default=uuid.uuid4,
+                nullable=False, unique=True,
+                autoincrement=False)
+    pilot_id = Column(UUID, ForeignKey("pilots.id"))
     logbook_style = Column(String, nullable=False, unique=True)
     header_titles = Column(JSONB)
 
 
 class Aircraft(Base):
-    # TODO: Add if_retractable_gear, to record RG time
     # TODO: Is it AIRPLANE, HELI, GLIDER, LS, etc.
     __tablename__ = "aircraft"
 
-    id = Column(Integer, primary_key=True, index=True, unique=True)
-    pilot_id = Column(Integer, ForeignKey("pilots.id"))
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                index=True, default=uuid.uuid4,
+                nullable=False, unique=True,
+                autoincrement=False)
+    pilot_id = Column(UUID, ForeignKey("pilots.id"))
     ac_tail = Column(String, nullable=False)
     ac_mm = Column(String, nullable=False)
     is_retractable = Column(Boolean, default=False)
@@ -55,11 +65,14 @@ class Aircraft(Base):
 class Flight(Base):
     __tablename__ = "flights"
 
-    id = Column(Integer, primary_key=True, index=True)
-    # Linked to
-    pilot_id = Column(Integer, ForeignKey("pilots.id"))
-    aircraft_id = Column(Integer, ForeignKey("aircraft.id"))
-    # Flight data
+    id = Column(UUID(as_uuid=True), primary_key=True,
+                index=True, default=uuid.uuid4,
+                nullable=False, unique=True,
+                autoincrement=False)
+
+    pilot_id = Column(UUID, ForeignKey("pilots.id"))
+    aircraft_id = Column(UUID, ForeignKey("aircraft.id"))
+
     year = Column(Integer, default=_get_year, index=True)
     date = Column(Date, default=_get_date, index=True)
     fl_from = Column(String)

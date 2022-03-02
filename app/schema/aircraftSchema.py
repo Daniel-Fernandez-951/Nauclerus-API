@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 
 
 # Aircraft
@@ -13,8 +13,8 @@ class AircraftCreate(AircraftBase):
 
 # Reading and Returning Section
 class Aircraft(AircraftBase):
-    id: int
-    pilot_id: int
+    id: UUID4
+    pilot_id: UUID4
     is_retractable: bool
 
     class Config:
