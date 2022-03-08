@@ -27,7 +27,7 @@ class PilotSecure(BaseModel):
     email: Optional[EmailStr]
     id: Optional[UUID4]
     password: str
-    created_at: Optional[str] = datetime.utcnow()
+    created_at: Optional[datetime] = datetime.utcnow()
 
 
 # Model for reading/returning
