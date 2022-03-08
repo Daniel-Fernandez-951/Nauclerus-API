@@ -1,6 +1,7 @@
 import sys
-import uvicorn
 import traceback
+
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
@@ -11,7 +12,7 @@ from starlette.responses import HTMLResponse
 
 # Import Run config
 import app.config.run_config as cfg
-from app.config.open_api import TAGS_METADATA, API_VERSION, MOESIF_SETTINGS
+from app.config.open_api import API_VERSION, MOESIF_SETTINGS, TAGS_METADATA
 # Import router files
 from app.core import Auth, Logbook, Pilot, Upload
 from app.database.configuration import engine

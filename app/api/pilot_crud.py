@@ -2,8 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.models import models
-from app.schema.pilotSchema import PilotCreate
 from app.schema.hash import Hash
+from app.schema.pilotSchema import PilotCreate
 
 
 # Make Pilot-User with login creds

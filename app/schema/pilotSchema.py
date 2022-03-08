@@ -1,10 +1,11 @@
-from pydantic import BaseModel, UUID4
-from pydantic.networks import EmailStr
-from typing import List, Optional
 from datetime import datetime
+from typing import List, Optional
 
-from .flightSchema import Flight
+from pydantic import UUID4, BaseModel
+from pydantic.networks import EmailStr
+
 from .aircraftSchema import Aircraft
+from .flightSchema import Flight
 
 
 # Base model lists common between reading/creating

@@ -1,8 +1,8 @@
-import random
 import json
-from locust import HttpUser, between, task, TaskSet
+import random
 
-from fake_data import NewLogbook, LoadedPilot
+from fake_data import LoadedPilot, NewLogbook
+from locust import HttpUser, TaskSet, between, task
 
 
 class MyTasks(TaskSet):

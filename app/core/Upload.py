@@ -1,14 +1,14 @@
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+from io import StringIO
+from typing import Callable
+
+import pandas as pd
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from fastapi.routing import APIRoute
 from sqlalchemy.orm import Session
-from typing import Callable
-import pandas as pd
-from io import StringIO
 
 from app.database import configuration
 from app.schema.oa2 import get_current_user
 from app.schema.tokenSchema import TokenData
-
 
 get_db = configuration.get_db
 
