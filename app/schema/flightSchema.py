@@ -1,7 +1,6 @@
 from pydantic import BaseModel, UUID4
 from datetime import date
 from typing import Optional
-from .aircraftSchema import Aircraft
 
 
 class FlightBase(BaseModel):
