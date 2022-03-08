@@ -80,9 +80,10 @@ if __name__ == '__main__':
             debug=bool(cfg.api['debug'])
         )
     except KeyboardInterrupt:
-        print(f"Stopping Nauclerus API")
+        print("Stopping Nauclerus API")
     except Exception as e:
         print(f"Start Failed\n{'#'*100}")
         traceback.print_exc(file=sys.stdout)
+        print(e)
         print(f"Exiting\n{'#'*100}")
     print("\n\n")
