@@ -36,7 +36,9 @@ class MyTasks(TaskSet):
 #                                      "password": "12345"
 #                                  })
 #         data = token.json()
-#         self.client.headers = {"Authorization": f"Bearer {data.get('access_token')}"}
+#         self.client.headers = {
+#         "Authorization": f"Bearer {data.get('access_token')}"
+#         }
 #
 #     tasks = {MyTasks}
 
