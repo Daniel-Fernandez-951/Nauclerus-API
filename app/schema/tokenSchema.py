@@ -9,4 +9,4 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
-    pilot_id: str = None
+    pilot_id: Optional[str] = None
