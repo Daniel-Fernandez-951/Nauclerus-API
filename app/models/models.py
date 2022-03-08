@@ -4,7 +4,10 @@ import uuid
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.dialects.postgresql import JSONB
-from sqlalchemy import Column, ForeignKey, Integer, String, Date, Numeric, Boolean, DateTime
+from sqlalchemy import (Column, ForeignKey,
+                        Integer, String,
+                        Date, Numeric,
+                        Boolean, DateTime)
 
 # Local import
 from app.database.configuration import Base
