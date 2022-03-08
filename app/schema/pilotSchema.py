@@ -5,7 +5,6 @@ from datetime import datetime
 
 from .flightSchema import Flight
 from .aircraftSchema import Aircraft
-from .logbookSchema import Logbook
 
 
 # Base model lists common between reading/creating
