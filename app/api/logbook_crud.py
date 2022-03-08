@@ -32,8 +32,10 @@ def delete_logbook_map(db: Session, pilot_id: str, logbook_id: str):
                 models.Logbook.pilot_id == pilot_id)\
         .first()
     if rm_logbook == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"Logbook with id {logbook_id} and pilot-id {pilot_id} not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Logbook with id {logbook_id} and pilot-id {pilot_id} not found"
+        )
     db.delete(rm_logbook)
     db.commit()
     return rm_logbook
