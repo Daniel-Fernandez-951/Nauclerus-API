@@ -21,7 +21,8 @@ get_db = configuration.get_db
             status_code=status.HTTP_200_OK)
 def get_logbook(db: Session = Depends(get_db),
                 token_data: TokenData = Depends(get_current_user)):
-    return logbook_crud.get_logbook_by_pilot(db=db, pilot_id=token_data.pilot_id)
+    return logbook_crud.get_logbook_by_pilot(db=db,
+                                             pilot_id=token_data.pilot_id)
 
 
 @router.post("/new",
