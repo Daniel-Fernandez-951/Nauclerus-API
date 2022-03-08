@@ -55,6 +55,8 @@ class ApiUserLoaded(HttpUser):
         })
 
         data = token.json()
-        self.client.headers = {"Authorization": f"Bearer {data['access_token']}"}
+        self.client.headers = {
+            "Authorization": f"Bearer {data['access_token']}"
+        }
 
     tasks = {MyTasks}
