@@ -34,7 +34,8 @@ def upload_logbook_file(file: UploadFile = File(...),
                         db: Session = Depends(get_db),
                         token_data: TokenData = Depends(get_current_user)):
     if token_data.pilot_id is None:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Pilot ID required.")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="Pilot ID required.")
 
     file_raw = file.file.read()
     file_pd = pd.read_csv(StringIO(str(file_raw, 'utf-8-sig')),
