@@ -27,7 +27,7 @@ def login(request: OAuth2PasswordRequestForm = Depends(),
         raise HTTPException(
             status_code=status.HTTP_406_NOT_ACCEPTABLE,
             detail="Login Failure: Email/Password")
-    
+
     access_token = create_access_token(
         data={"sub": pilot.email,
               "originTime": str(pilot.created_at),
