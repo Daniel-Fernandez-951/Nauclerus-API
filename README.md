@@ -8,12 +8,14 @@
   <h3 align="center">Pilot Logbook API </h3>
 
 
-
->###Quickly Run Github Package 🛫
->_Make .env file like the sample file in the repo_
->```shell
->docker run -d -p 80:80 --env-file .env ghcr.io/daniel-fernandez-951/nauclerus-api:release
->```
+---
+> **Quickly Run Github Package 🛫**
+> 
+> _Make .env file like the sample file in the repo_
+> ```shell
+> docker run -d -p 80:80 --env-file .env ghcr.io/daniel-fernandez-951/nauclerus-api:release
+> ```
+---
 
 
 <!-- TABLE OF CONTENTS -->
