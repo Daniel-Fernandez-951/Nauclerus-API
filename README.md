@@ -1,3 +1,6 @@
+[![Flake8 Mypy Isort](https://github.com/Daniel-Fernandez-951/Nauclerus-API/actions/workflows/flake8_mypy.yml/badge.svg)](https://github.com/Daniel-Fernandez-951/Nauclerus-API/actions/workflows/flake8_mypy.yml)
+[![Pytest Coverage](https://github.com/Daniel-Fernandez-951/Nauclerus-API/actions/workflows/pytest-cov.yml/badge.svg)](https://github.com/Daniel-Fernandez-951/Nauclerus-API/actions/workflows/pytest-cov.yml)
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
