@@ -1,3 +1,4 @@
+name: Flake8 | Mypy | Isort
 on: [push, pull_request]
 
 jobs:
