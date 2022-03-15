@@ -16,7 +16,7 @@ jobs:
         flake8-flags: '--count --show-source --statistics --max-line-length 120'
         mypy-flags: '--ignore-missing-imports'
         fail-on-isort: false
-        mypy-ignore-dirs-files: 'images static Dockerfile Dockerfile-dev nauclerus.service prestart.sh .gitignore .env .env.sample'
+        mypy-ignore-dirs-files: 'images static Dockerfile Dockerfile-dev nauclerus.service prestart.sh .gitignore .env .env.sample app/config/open_api.py'
 
     - name: commit isort changes
       run: |
