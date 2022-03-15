@@ -22,6 +22,8 @@ typing-extensions==3.10.0.2
 email-validator==1.1.3
 python-jose==3.3.0
 jinja2==3.0.3
+moesifasgi==0.0.3
+elastic-apm==6.8.1
 
 Faker~=10.0.0
 locust~=2.5.1
