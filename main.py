@@ -10,17 +10,9 @@ from starlette.responses import HTMLResponse
 
 # Import Run config
 import app.config.run_config as cfg
-from app.config.open_api import (
-    API_VERSION,
-    MOESIF_SETTINGS,
-    TAGS_METADATA,
-    SERVICE_NAME,
-    SECRET_TOKEN,
-    SERVER_URL,
-    MOESIF_ON,
-    ELASTIC_ON,
-    ELASTIC_ENV
-    )
+from app.config.open_api import (API_VERSION, ELASTIC_ENV, ELASTIC_ON,
+                                 MOESIF_ON, MOESIF_SETTINGS, SECRET_TOKEN,
+                                 SERVER_URL, SERVICE_NAME, TAGS_METADATA)
 # Import router files
 from app.core import Auth, Logbook, Pilot, Upload
 from app.database.configuration import engine
@@ -60,7 +52,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # API Monitoring if-switching
 if ELASTIC_ON is True:
-    from elasticapm.contrib.starlette import make_apm_client, ElasticAPM
+    from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
     apm = make_apm_client({
         'SERVICE_NAME': SERVICE_NAME,
         'SECRET_TOKEN': SECRET_TOKEN,
