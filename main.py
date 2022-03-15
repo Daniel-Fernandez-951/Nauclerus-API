@@ -6,13 +6,13 @@ from fastapi import FastAPI, Request
 from fastapi.openapi.utils import get_openapi
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-# API Metrics--MOESIF
-from moesifasgi import MoesifMiddleware
 from starlette.responses import HTMLResponse
 
 # Import Run config
 import app.config.run_config as cfg
-from app.config.open_api import API_VERSION, MOESIF_SETTINGS, TAGS_METADATA
+from app.config.open_api import (API_VERSION, ELASTIC_ENV, ELASTIC_ON,
+                                 MOESIF_ON, MOESIF_SETTINGS, SECRET_TOKEN,
+                                 SERVER_URL, SERVICE_NAME, TAGS_METADATA)
 # Import router files
 from app.core import Auth, Logbook, Pilot, Upload
 from app.database.configuration import engine
@@ -49,9 +49,24 @@ app = FastAPI(openapi_tags=TAGS_METADATA)
 app.openapi = custom_openapi
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# API Monitoring
-app.add_middleware(MoesifMiddleware, settings=MOESIF_SETTINGS)
 
+# API Monitoring if-switching
+if ELASTIC_ON == '1':
+    from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
+    apm = make_apm_client({
+        'SERVICE_NAME': SERVICE_NAME,
+        'SECRET_TOKEN': SECRET_TOKEN,
+        'ELASTIC_APM_CAPTURE_BODY': 'all',
+        'SERVER_URL': SERVER_URL,
+        'ENVIRONMENT': ELASTIC_ENV,
+    })
+    app.add_middleware(ElasticAPM, client=apm)
+
+if MOESIF_ON == '1':
+    from moesifasgi import MoesifMiddleware
+    app.add_middleware(MoesifMiddleware, settings=MOESIF_SETTINGS)
+
+# DB Specific endpoints
 app.include_router(Pilot.router)
 # app.include_router(Aircraft.router)
 app.include_router(Logbook.router)

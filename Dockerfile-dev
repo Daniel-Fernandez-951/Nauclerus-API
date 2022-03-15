@@ -1,7 +1,13 @@
 FROM tiangolo/uvicorn-gunicorn:python3.8
 
+ARG elastic
+ARG moesif
+
 COPY . /app
 
 RUN apt-get update && \
     pip install --upgrade pip && \
     pip install --no-cache-dir --upgrade -r /app/requirements_dev.txt
+
+RUN if [ "$elastic" = true ] ; then pip install elastic-apm==6.8.1 ; else echo Elastic off ; fi
+RUN if [ "$moesif" = true] ; then pip install moesifasgi==0.0.3 ;  else echo Moesif off ; fi

@@ -1,9 +1,10 @@
-on: [push, pull_request]
+name: Flake8 | Mypy | Isort
+on: [push]
 
 jobs:
   python-lint:
     runs-on: ubuntu-latest
-    name: CI workflow
+    name: Flake8 | Mypy | Isort
     steps:
     - name: checkout source repo
       uses: actions/checkout@v2
@@ -15,7 +16,7 @@ jobs:
         flake8-flags: '--count --show-source --statistics --max-line-length 120'
         mypy-flags: '--ignore-missing-imports'
         fail-on-isort: false
-        mypy-ignore-dirs-files: 'images static Dockerfile Dockerfile-dev nauclerus.service prestart.sh .gitignore .env .env.sample'
+        mypy-ignore-dirs-files: 'images static Dockerfile Dockerfile-dev nauclerus.service prestart.sh .gitignore .env .env.sample app/config/open_api.py'
 
     - name: commit isort changes
       run: |
