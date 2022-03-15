@@ -19,7 +19,7 @@ MOESIF_ON = os.getenv('MOESIF_ON')
 ELASTIC_ON = os.getenv('ELASTIC_ON')
 
 # Check for API Mon. conflict
-if MOESIF_ON and ELASTIC_ON is '1':
+if MOESIF_ON and ELASTIC_ON == '1':
     MOESIF_ON, ELASTIC_ON = '0', '0'
     print(f"MOE = {type(MOESIF_ON)}, {MOESIF_ON}\nELASTIC = {type(ELASTIC_ON)}, {ELASTIC_ON}")
 
