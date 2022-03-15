@@ -1,5 +1,5 @@
 name: Flake8 | Mypy | Isort
-on: [push, pull_request]
+on: [push]
 
 jobs:
   python-lint:
