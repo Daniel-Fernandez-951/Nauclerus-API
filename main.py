@@ -51,7 +51,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 # API Monitoring if-switching
-if ELASTIC_ON is True:
+if ELASTIC_ON is '1':
     from elasticapm.contrib.starlette import ElasticAPM, make_apm_client
     apm = make_apm_client({
         'SERVICE_NAME': SERVICE_NAME,
@@ -62,7 +62,7 @@ if ELASTIC_ON is True:
     })
     app.add_middleware(ElasticAPM, client=apm)
 
-if MOESIF_ON is True:
+if MOESIF_ON is '1':
     from moesifasgi import MoesifMiddleware
     app.add_middleware(MoesifMiddleware, settings=MOESIF_SETTINGS)
 

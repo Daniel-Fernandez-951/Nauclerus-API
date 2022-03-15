@@ -15,14 +15,12 @@ SERVER_URL = os.getenv('ELASTIC_SERVER_URL')
 ELASTIC_ENV = os.getenv('ELASTIC_ENV')
 
 
-try:
-    MOESIF_ON = bool(int(os.getenv('MOESIF_ON')))
-    ELASTIC_ON = bool(int(os.getenv('ELASTIC_ON')))
-except TypeError:
-    pass
+MOESIF_ON = os.getenv('MOESIF_ON')
+ELASTIC_ON = os.getenv('ELASTIC_ON')
+
 # Check for API Mon. conflict
-if MOESIF_ON and ELASTIC_ON is True:
-    MOESIF_ON, ELASTIC_ON = False, False
+if MOESIF_ON and ELASTIC_ON is '1':
+    MOESIF_ON, ELASTIC_ON = '0', '0'
     print(f"MOE = {type(MOESIF_ON)}, {MOESIF_ON}\nELASTIC = {type(ELASTIC_ON)}, {ELASTIC_ON}")
 
 
