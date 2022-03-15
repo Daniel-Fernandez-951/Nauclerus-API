@@ -15,8 +15,11 @@ SERVER_URL = os.getenv('ELASTIC_SERVER_URL')
 ELASTIC_ENV = os.getenv('ELASTIC_ENV')
 
 
-MOESIF_ON = bool(int(os.getenv('MOESIF_ON')))
-ELASTIC_ON = bool(int(os.getenv('ELASTIC_ON')))
+try:
+    MOESIF_ON = bool(int(os.getenv('MOESIF_ON')))
+    ELASTIC_ON = bool(int(os.getenv('ELASTIC_ON')))
+except TypeError:
+    pass
 # Check for API Mon. conflict
 if MOESIF_ON and ELASTIC_ON is True:
     MOESIF_ON, ELASTIC_ON = False, False
