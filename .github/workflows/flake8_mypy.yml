@@ -18,12 +18,12 @@ jobs:
         fail-on-isort: false
         mypy-ignore-dirs-files: 'images static Dockerfile Dockerfile-dev nauclerus.service prestart.sh .gitignore .env .env.sample app/config/open_api.py'
 
-    - name: commit isort changes
-      run: |
-        git config --global --add safe.directory /github/workspace
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A && git diff-index --cached --quiet HEAD || git commit -m '🤖 isort 🤖'
+#     - name: commit isort changes
+#       run: |
+#         git config --global --add safe.directory /github/workspace
+#         git config --local user.email "action@github.com"
+#         git config --local user.name "GitHub Action"
+#         git add -A && git diff-index --cached --quiet HEAD || git commit -m '🤖 isort 🤖'
 
     - name: push isort changes
       uses: ad-m/github-push-action@v0.5.0
