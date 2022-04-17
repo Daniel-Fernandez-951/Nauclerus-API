@@ -50,7 +50,7 @@ jobs:
 
     - name: pytester-cov
       id: pytester-cov
-      uses: alexanderdamiani/pytester-cov@v1.2.3
+      uses: programmingwithalex/pytester-cov@v1.2.4
       with:
         pytest-root-dir: '.'
         cov-omit-list: 'app/tests/*, images/*, README.md, static/*, .git/*, .env.sample, Dockerfile, Dockerfile_dev, app/config/*, app/*/__init__.py, app/*/*/__init__.py'
